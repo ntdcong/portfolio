@@ -1,9 +1,10 @@
 import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
 
-type Theme = 'light' | 'dark';
+export type Theme = 'balsamiq' | 'showcase';
 
 interface ThemeContextType {
   theme: Theme;
+  setTheme: (theme: Theme) => void;
   toggleTheme: () => void;
 }
 
@@ -11,27 +12,33 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export const ThemeProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [theme, setTheme] = useState<Theme>(() => {
-    const savedTheme = localStorage.getItem('theme') as Theme;
-    return savedTheme || 'light';
+    const savedTheme = typeof window !== 'undefined'
+      ? (window.localStorage.getItem('theme') as Theme)
+      : undefined;
+    const initialTheme = savedTheme || 'balsamiq';
+    if (typeof document !== 'undefined') {
+      document.documentElement.setAttribute('data-theme', initialTheme);
+    }
+    return initialTheme;
   });
 
   useEffect(() => {
-    localStorage.setItem('theme', theme);
-    // Update HTML class for Tailwind dark mode
-    if (theme === 'dark') {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
+    if (typeof window !== 'undefined') {
+      window.localStorage.setItem('theme', theme);
+    }
+    if (typeof document !== 'undefined') {
+      document.documentElement.setAttribute('data-theme', theme);
     }
   }, [theme]);
 
   const toggleTheme = () => {
-    setTheme(prev => prev === 'light' ? 'dark' : 'light');
+    setTheme(prev => (prev === 'balsamiq' ? 'showcase' : 'balsamiq'));
   };
 
   const value: ThemeContextType = {
     theme,
-    toggleTheme
+    setTheme,
+    toggleTheme,
   };
 
   return (

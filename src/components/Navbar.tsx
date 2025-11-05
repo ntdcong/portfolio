@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { useLanguage } from '../contexts/LanguageContext';
+import { useTheme } from '../contexts/ThemeContext';
 
 const Navbar: React.FC = () => {
   const { t, language, setLanguage } = useLanguage();
+  const { theme, toggleTheme } = useTheme();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLangMenuOpen, setIsLangMenuOpen] = useState(false);
 
@@ -99,6 +101,19 @@ const Navbar: React.FC = () => {
                 )}
               </div>
 
+              {/* Theme Toggle */}
+              <button
+                onClick={toggleTheme}
+                className="sketch-button flex items-center space-x-2 text-sketch-dark hover:bg-sketch-light"
+                aria-label="Toggle theme"
+              >
+                <span role="img" aria-hidden="true">
+                  {theme === 'showcase' ? '✏️' : '✨'}
+                </span>
+                <span className="text-sm font-bold uppercase">
+                  {theme === 'showcase' ? 'Sketch' : 'Make it colorful'}
+                </span>
+              </button>
 
             </div>
           </div>
@@ -155,6 +170,15 @@ const Navbar: React.FC = () => {
               className="block w-full text-left sketch-button mb-1"
             >
               {t.navbar.contact}
+            </button>
+            <button
+              onClick={toggleTheme}
+              className="block w-full text-left sketch-button mb-1 flex items-center justify-between"
+            >
+              <span>{theme === 'showcase' ? 'Sketch' : 'Make it colorful'}</span>
+              <span role="img" aria-hidden="true">
+                {theme === 'showcase' ? '✏️' : '✨'}
+              </span>
             </button>
             {/* Mobile Language Selector */}
             <div className="mt-2 pt-2 border-t-2 border-sketch-border">

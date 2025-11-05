@@ -175,7 +175,7 @@ const Contact: React.FC = () => {
             {/* Fun Sketch Note */}
             <div className="relative">
               <div 
-                className="bg-yellow-100 p-4 transform rotate-2 shadow-sketch"
+                className="bg-yellow-400 p-4 transform rotate-2 shadow-sketch"
                 style={{ borderRadius: '255px 15px 225px 15px/15px 225px 15px 255px' }}
               >
                 <p className="font-sketch text-sm text-sketch-dark">

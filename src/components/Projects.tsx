@@ -18,13 +18,13 @@ const Projects: React.FC = () => {
           {projects.map((project, index) => (
             <div
               key={project.id}
-              className="sketch-card hover:shadow-sketch-lg transition-all duration-300 hover:transform hover:scale-105 bg-white"
+              className="sketch-card hover:shadow-sketch-lg transition-all duration-300 hover:transform hover:scale-105 bg-white h-full flex flex-col"
               style={{
                 transform: `rotate(${index % 2 === 0 ? -0.5 : 0.5}deg)`,
               }}
             >
               {/* Project Image Placeholder */}
-              <div className="h-48 bg-sketch-bg mb-4 border-2 border-sketch-border rounded-sketch-sm flex items-center justify-center">
+              <div className="h-48 bg-sketch-bg mb-4 border-2 border-sketch-border rounded-sketch-sm flex items-center justify-center flex-shrink-0">
                 <svg
                   viewBox="0 0 400 250"
                   className="w-full h-full p-8"
@@ -43,37 +43,54 @@ const Projects: React.FC = () => {
                 </svg>
               </div>
 
-              {/* Project Details */}
-              <h3 className="text-xl font-bold mb-2 text-sketch-dark font-sketch">
-                {project.title}
-              </h3>
-              <p className="text-sketch-gray mb-4 text-sm">
-                {project.description}
-              </p>
+              {/* Project Details - Fixed height container */}
+              <div className="flex-1 flex flex-col min-h-0">
+                {/* Project Title - Fixed height */}
+                <h3 className="text-xl font-bold mb-2 text-sketch-dark font-sketch h-14 flex items-center flex-shrink-0">
+                  {project.title}
+                </h3>
 
-              {/* Technologies */}
-              <div className="mb-4">
-                <p className="text-xs font-bold text-sketch-dark mb-2">
-                  {t.projects.technologies}:
+                {/* Description - Fixed height with truncation */}
+                <p className="text-sketch-gray mb-4 text-sm h-12 overflow-hidden flex-shrink-0" style={{
+                  display: '-webkit-box',
+                  WebkitLineClamp: 3,
+                  WebkitBoxOrient: 'vertical',
+                  lineHeight: '1.2'
+                }}>
+                  {project.description}
                 </p>
-                <div className="flex flex-wrap gap-1">
-                  {project.technologies.map((tech, techIndex) => (
-                    <span
-                      key={techIndex}
-                      className="px-2 py-1 text-xs bg-sketch-bg border border-sketch-gray"
-                      style={{
-                        borderRadius: '55px 5px 25px 5px/5px 25px 5px 55px',
-                        transform: `rotate(${techIndex % 2 === 0 ? -2 : 2}deg)`,
-                      }}
-                    >
-                      {tech}
-                    </span>
-                  ))}
+
+                {/* Technologies - Fixed height container */}
+                <div className="mb-4 flex-1 min-h-0 flex-shrink-0">
+                  <p className="text-xs font-bold text-sketch-dark mb-2">
+                    {t.projects.technologies}:
+                  </p>
+                  <div className="h-16 overflow-hidden">
+                    <div className="flex flex-wrap gap-1">
+                      {project.technologies.slice(0, 6).map((tech, techIndex) => (
+                        <span
+                          key={techIndex}
+                          className="px-2 py-1 text-xs bg-sketch-bg border border-sketch-gray"
+                          style={{
+                            borderRadius: '55px 5px 25px 5px/5px 25px 5px 55px',
+                            transform: `rotate(${techIndex % 2 === 0 ? -2 : 2}deg)`,
+                          }}
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                      {project.technologies.length > 6 && (
+                        <span className="px-2 py-1 text-xs bg-sketch-bg border border-sketch-gray text-sketch-gray">
+                          +{project.technologies.length - 6}
+                        </span>
+                      )}
+                    </div>
+                  </div>
                 </div>
               </div>
 
-              {/* Action Buttons */}
-              <div className="flex gap-2">
+              {/* Action Buttons - Fixed at bottom */}
+              <div className="flex gap-2 mt-auto flex-shrink-0">
                 <a
                   href={project.githubUrl}
                   target="_blank"

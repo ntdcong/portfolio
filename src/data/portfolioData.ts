@@ -126,10 +126,9 @@ export const profile = {
   name: 'Nguyen Thanh Duy Cong',
   role: 'Student Developer & IT Enthusiast',
   tagline: '"Programming for life and being able to use it to help others"',
-  bio: `I am an man passionate about creating practical applications for 
-        education, life and companys. I enjoy experimenting with all
-        technologies (I mean EVERYTHINGS) to build products that combine 
-        creativity with real-world utility.`,
+  bio: `I am a man passionate about creating practical applications for education, 
+        life, and companies. I enjoy experimenting with all kinds of technologies 
+        (I mean EVERYTHING) to build products that combine creativity with real-world utility.`,
   interests: ['Technologys', 'Musics', 'Novels', 'Games', 'Traveling', 'Gym', 'Cooking'],
   social: {
     github: 'https://github.com/ntdcong',
