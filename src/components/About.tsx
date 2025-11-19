@@ -61,8 +61,7 @@ const About: React.FC = () => {
                   {profile.interests.map((interest, index) => (
                     <span
                       key={index}
-                      className="px-3 py-1 bg-sketch-light border border-sketch-border text-sm transform"
-                      style={{ transform: `rotate(${index % 2 === 0 ? -1 : 1}deg)` }}
+                      className="px-3 py-1 bg-sketch-light border border-sketch-border text-sm"
                     >
                       {interest}
                     </span>
@@ -83,7 +82,6 @@ const About: React.FC = () => {
               <div
                 key={index}
                 className="sketch-card hover:shadow-sketch-lg transition-shadow"
-                style={{ transform: `rotate(${index === 1 ? 0.5 : -0.5}deg)` }}
               >
                 <h4 className="font-bold mb-3 text-lg text-sketch-dark border-b-2 border-sketch-border pb-2">
                   {skillGroup.category}
